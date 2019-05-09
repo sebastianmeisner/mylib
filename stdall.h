@@ -2,7 +2,7 @@
 // If not hosted only <float.h>, <iso646.h>, <limits.h>, <stdalign.h>, <stdarg.h>, <stdbool.h>, <stddef.h>, <stdint.h>, and <stdnoreturn.h> are allowed.
 #endif // __STDC_HOSTED__
 
-#if __STDC__ = 1 //C89
+#if __STDC__ == 1 //C89
 #include <assert.h>
 #include <ctype.h>
 #include <errno.h>
@@ -39,8 +39,10 @@
 #include <stdalign.h>
 #include <stdatomic.h>
 #include <stdnoreturn.h>
-#include <threads.h>
-#include <uchar.h>
+#if !defined(__STDC_NO_THREADS__)
+    //#include <threads.h>
+#endif
+//#include <uchar.h>
 #endif // __STDC_VERSION__
 
 #if __STDC_VERSION__ >= 201710L //C17
