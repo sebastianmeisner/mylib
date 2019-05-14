@@ -1,8 +1,8 @@
 #include <stdall.h>
+#include <stdenv.h>
 
 int main()
 {
-    bool godmode = true;
     printf("Hello world!\n");
     return 0;
 }

@@ -1,3 +1,6 @@
+#ifndef STDALL_H_INCLUDED
+#define STDALL_H_INCLUDED
+
 #if __STDC_HOSTED__ == 1
     #if __STDC__ == 1 //C89
         #include <assert.h>
@@ -17,13 +20,13 @@
         #include <time.h>
     #endif
 
-    #if defined(__STDC_VERISON__) && (__STDC_VERSION__ >= 199409L) // C95
+    #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199409L) // C95
         #include <iso646.h>
         #include <wchar.h>
         #include <wctype.h>
     #endif // __STDC_VERSION__
 
-    #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L //C99
+    #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L) // C99
         #if !defined(__STDC_NO_COMPLEX__)
             #include <complex.h>
         #endif
@@ -34,20 +37,26 @@
         #include <tgmath.h>
     #endif // __STDC_VERSION__
 
-    #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+    #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L) // C11
         #include <stdalign.h>
         #if !defined(__STDC_NO_ATOMICS__)
             #include <stdatomic.h>
         #endif
         #include <stdnoreturn.h>
-        #if !defined(__STDC_NO_THREADS__)
-            //#include <threads.h>
+
+        // As of 2019, neither MinGW nor Cygwin GCC support
+        // threads.h or uchar on Windows
+        #if !defined(__WIN32__) || !defined(_WIN32)
+            #if !defined(__STDC_NO_THREADS__)
+                #include <threads.h>
+            #endif
+            #include <uchar.h>
         #endif
-        #include <uchar.h>
+
     #endif // __STDC_VERSION__
 
-    #if __STDC_VERSION__ >= 201710L //C17
-    // no new include files for this C standard revision
+    #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201710L) //C17
+        // no new include files for this C standard revision
     #endif // __STDC_VERSION__
 #else
     #include <float.h>
@@ -61,7 +70,7 @@
     #include <stdnoreturn.h>
 #endif // __STDC_HOSTED__
 
-
+#endif // STDALL_H_INCLUDED
 
 
 
